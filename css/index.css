@@ -129,6 +129,12 @@ textarea {
     outline: none;
 }
 
+.imgCard {
+    top: 1%;
+    left: 0;
+    opacity: .8;
+}
+
 @media (max-width: 1440px) {
     .contBtnsNuevaNota {
         width: 20%;

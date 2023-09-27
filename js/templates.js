@@ -49,24 +49,24 @@ export function nota(titulo,texto) {
     const templateNota = //html
                     `
                     <div class="rounded-4 p-0 marcoCard">
-                        <div class="card w-100 h-100">
-                            <div class="card-header">
-                            ${titulo.toUpperCase()}
-                            </div>
-                            <div class="card-body position-relative">
-                                <h5 class="card-title">${titulo}</h5>
-                                <p class="card-text">${texto}</p>
-                                <div class="containerfluid position-absolute bottom-0 start-0 d-flex justify-content-evenly w-100" id="contBtnsAcciones">
-                                    <button class="btn btn-primary w-50 m-1 d-flex align-items-center justify-content-center btnCard" id="resuelto">
-                                        <h2 class="fs-4 m-0">Cumplido</h2>
-                                    </button>
-                                    <button class="btn btn-danger w-50 m-1 d-flex align-items-center justify-content-center btnCard" id="eliminar">
-                                        <h2 class="fs-4 m-0">Eliminar</h2>
-                                    </button>
-                                </div>
+                    <div class="card w-100 h-100 position-relative">
+                        <div class="card-header">
+                        ${titulo.toUpperCase()}
+                        </div>
+                        <div class="card-body position-relative h-75">
+                            <h5 class="card-title">${titulo}</h5>
+                            <p class="card-text h-75 overflow-y-scroll">${texto}</p>
+                            <div class="containerfluid position-absolute bottom-0 start-0 d-flex justify-content-evenly w-100" id="contBtnsAcciones">
+                                <button class="btn btn-primary w-50 m-1 d-flex align-items-center justify-content-center btnCard" id="resuelto">
+                                    <h2 class="fs-4 m-0">Cumplido</h2>
+                                </button>
+                                <button class="btn btn-danger w-50 m-1 d-flex align-items-center justify-content-center btnCard" id="eliminar">
+                                    <h2 class="fs-4 m-0">Eliminar</h2>
+                                </button>
                             </div>
                         </div>
                     </div>
+                </div>
                     `
 
     return templateNota

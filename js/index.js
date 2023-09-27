@@ -95,7 +95,8 @@ function generarNota(titulo,texto) {
                 const btnRes = medida[2].querySelector('#resuelto')
                 console.log(btnRes)
                 btnRes.disabled = true;
-                card
+                card.insertAdjacentHTML('beforeend',`
+                        <img src="./assets/checkmark-circle-green.svg" alt="" class="position-absolute imgCard">`)
             }
             else if(e.target.parentElement.id === 'eliminar') {
                 console.log('si')
