@@ -117,6 +117,11 @@ body {
 .btnControlNnota {
     width: 70px;
     height: 70px;
+    border: 2px var(--color-btnAdd) dashed;
+    background-color: transparent;
+}
+
+.btnControlNnota:hover {
     background-color: var(--color-btnAdd);
 }
 

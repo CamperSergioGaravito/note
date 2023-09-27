@@ -4,36 +4,7 @@ function mostrarModal() {
         area.removeChild(area.children[area.children.length-1])
     }
     else {
-        document.getElementById('area').insertAdjacentHTML('beforeend',templateNuevaNota)
-    }
-}
-
-const grilla = document.getElementById('grilla');
-const template = //html
-                `
-                <div class="rounded-4 p-0 marcoCard">
-                    <div class="card w-100 h-100">
-                        <div class="card-header">
-                          Featured
-                        </div>
-                        <div class="card-body position-relative">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <div class="containerfluid position-absolute bottom-0 start-0 d-flex justify-content-evenly w-100">
-                                <button class="btn btn-primary w-50 m-1 btnCard">
-                                    <img src="./assets/checkmark-circle.svg" alt="" class="img-fluid w-50 ">
-                                </button>
-                                <button class="btn btn-danger w-50 m-1 btnCard">
-                                    <img src="./assets/close-circle.svg" alt="" class="img-fluid w-50 ">
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                `
-
-
-const templateNuevaNota = //html
+        const templateNuevaNota = //html
                         `
                         <div class="container-fluid h-75 position-fixed contNewNote d-flex flex-column align-items-center justify-content-evenly">
                             <!-- botones -->
@@ -41,7 +12,7 @@ const templateNuevaNota = //html
                                 <button class="rounded-circle btnControlNnota">
                                     <img src="./assets/md-save.svg" alt="" class="img-fluid w-100 ">
                                 </button>
-                                <button class="rounded-circle btnControlNnota" onclick="mostrarModal()" id="btnControlNnota">
+                                <button class="rounded-circle btnControlNnota" id="btnControlNnota">
                                     <img src="./assets/close-circle.svg" alt="" class="img-fluid w-100">
                                 </button>
                             </div>
@@ -76,14 +47,50 @@ const templateNuevaNota = //html
                                         <h3 class="fs-3 fw-bold ">2000</h3>
                                     </div>
                                 </div>
-                                <textarea name="textonota" id="textonota" maxlength="2000" class="textoNota fs-2" placeholder="Escribe aquí"></textarea>
+                                <textarea name="textonota" id="textonota" maxlength="2000" class="textoNota fs-2" placeholder="Escribe aquí máximo 2000 caracteres"></textarea>
                             </div>
                         </div>
                         `
+        document.getElementById('area').insertAdjacentHTML('beforeend',templateNuevaNota)
+        const btnControlNnota = document.getElementById('btnControlNnota')
+        crearEbtn(btnControlNnota)
+    }
+}
+
+function crearEbtn(btn) {
+    btn.addEventListener('click',mostrarModal)
+}
+
+const grilla = document.getElementById('grilla');
+const template = //html
+                `
+                <div class="rounded-4 p-0 marcoCard">
+                    <div class="card w-100 h-100">
+                        <div class="card-header">
+                          Featured
+                        </div>
+                        <div class="card-body position-relative">
+                            <h5 class="card-title">Special title treatment</h5>
+                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            <div class="containerfluid position-absolute bottom-0 start-0 d-flex justify-content-evenly w-100">
+                                <button class="btn btn-primary w-50 m-1 btnCard">
+                                    <img src="./assets/checkmark-circle.svg" alt="" class="img-fluid w-50 ">
+                                </button>
+                                <button class="btn btn-danger w-50 m-1 btnCard">
+                                    <img src="./assets/close-circle.svg" alt="" class="img-fluid w-50 ">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                `
+
+
+
 
 grilla.insertAdjacentHTML("beforeend",template);
 
 
 const btnAddNota = document.getElementById('btnAddNota');
 btnAddNota.addEventListener('click',mostrarModal);
-    
+
