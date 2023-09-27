@@ -1,95 +1,111 @@
+import { templateNuevaNota } from "./templates.js";
+import { nota } from "./templates.js";
+
 function mostrarModal() {
     const area = document.getElementById('area');
     if(area.children.length > 3) {
         area.removeChild(area.children[area.children.length-1])
     }
     else {
-        const templateNuevaNota = //html
-                        `
-                        <div class="container-fluid h-75 position-fixed contNewNote d-flex flex-column align-items-center justify-content-evenly">
-                            <!-- botones -->
-                            <div class="container-fluid d-flex align-items-center justify-content-evenly contBtnsNuevaNota">
-                                <button class="rounded-circle btnControlNnota">
-                                    <img src="./assets/md-save.svg" alt="" class="img-fluid w-100 ">
-                                </button>
-                                <button class="rounded-circle btnControlNnota" id="btnControlNnota">
-                                    <img src="./assets/close-circle.svg" alt="" class="img-fluid w-100">
-                                </button>
-                            </div>
-
-                            <!-- información de nueva nota -->
-                            <h2 class="fs-1 mt-3 tituloNnota">Nueva nota</h2>
-                            <div class="container-fluid d-flex flex-column align-items-center justify-content-evenly contTittle">
-                                <div class="container-fluid d-flex justify-content-between contTitNuevaNota">
-                                    <div class="d-flex">
-                                        <img src="./assets/crear.png" alt="" class="img-fluid imgNota">
-                                        <h2 class="fs-3 mt-3">Titulo</h2>
-                                    </div>
-                                    <div class="contSizeText d-flex align-items-center h-100 justify-content-evenly">
-                                        <h3 class="fs-3 fw-bold ">0</h3>
-                                        /
-                                        <h3 class="fs-3 fw-bold ">30</h3>
-                                    </div>
-                                </div>
-                                <div class="container-fluid d-flex contTitNuevaNota">
-                                    <input type="text" maxlength="30" class="rounded-3 fs-2 inputTitulo" placeholder="máximo 30 caracteres">
-                                </div>
-                            </div>
-                            <div class="container-fluid d-flex flex-column align-items-center justify-content-evenly contText">
-                                <div class="container-fluid d-flex justify-content-between contTitNuevaNota">
-                                    <div class="d-flex">
-                                        <img src="./assets/icono.png" alt="" class="img-fluid imgNota">
-                                        <h2 class="fs-3 mt-3">Nueva nota</h2>
-                                    </div>
-                                    <div class="contSizeText d-flex align-items-center h-100 justify-content-evenly">
-                                        <h3 class="fs-3 fw-bold ">0</h3>
-                                        /
-                                        <h3 class="fs-3 fw-bold ">2000</h3>
-                                    </div>
-                                </div>
-                                <textarea name="textonota" id="textonota" maxlength="2000" class="textoNota fs-2" placeholder="Escribe aquí máximo 2000 caracteres"></textarea>
-                            </div>
-                        </div>
-                        `
         document.getElementById('area').insertAdjacentHTML('beforeend',templateNuevaNota)
         const btnControlNnota = document.getElementById('btnControlNnota')
-        crearEbtn(btnControlNnota)
+        crearEbtn(btnControlNnota,'click',mostrarModal);
+
+        const titulo = document.getElementById('tituloT');
+        const textnota = document.querySelector('textarea');
+        const cantTitulo = document.getElementById('cantTitulo');
+        const cantTexto = document.getElementById('cantTexto');
+        const guardar = document.getElementById('guardar');
+
+        console.log(titulo.value)
+
+        titulo.addEventListener('keypress',(e) => {
+           contarCaracteres(e,titulo,cantTitulo,titulo.attributes);
+        })
+
+        textnota.addEventListener('keypress',(e) => {
+            contarCaracteres(e,textnota,cantTexto,textnota.attributes);
+        })
+
+        titulo.addEventListener('keydown',(e) => {
+            teclasOtras(e,titulo,cantTitulo,titulo.attributes);
+         })
+ 
+         textnota.addEventListener('keydown',(e) => {
+             teclasOtras(e,textnota,cantTexto,textnota.attributes);
+         })
+
+         guardar.addEventListener('click', () => generarNota(titulo.value,textnota.value))
+        
     }
 }
 
-function crearEbtn(btn) {
-    btn.addEventListener('click',mostrarModal)
+function crearEbtn(elemento,tipo,func) {
+    elemento.addEventListener(tipo,func)
 }
 
-const grilla = document.getElementById('grilla');
-const template = //html
-                `
-                <div class="rounded-4 p-0 marcoCard">
-                    <div class="card w-100 h-100">
-                        <div class="card-header">
-                          Featured
-                        </div>
-                        <div class="card-body position-relative">
-                            <h5 class="card-title">Special title treatment</h5>
-                            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            <div class="containerfluid position-absolute bottom-0 start-0 d-flex justify-content-evenly w-100">
-                                <button class="btn btn-primary w-50 m-1 btnCard">
-                                    <img src="./assets/checkmark-circle.svg" alt="" class="img-fluid w-50 ">
-                                </button>
-                                <button class="btn btn-danger w-50 m-1 btnCard">
-                                    <img src="./assets/close-circle.svg" alt="" class="img-fluid w-50 ">
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                `
+function contarCaracteres(e,elemento,cant,num) {
+    num = parseInt(num.maxlength.value);
+    e.preventDefault();
+    if(elemento.value.length < num) {
+        elemento.value += e.key;
+        cant.textContent = elemento.value.length
+    }
+    else {
+        return
+    }
+}
 
+function teclasOtras(e,elemento,cant,num) {
+    num = parseInt(num.maxlength.value);
+    const longitudElement = elemento.value.length;
+    if(longitudElement < num && longitudElement > 0) {
+        /* console.log(e.key) */
+        switch(e.key) {
+            case 'Backspace':
+                cant.textContent = longitudElement-1;
+                break
+            
+            default:
+                return
+        }
+    }
+    else {
+        return
+    }
+}
 
+function generarNota(titulo,texto) {
+    console.log(titulo,texto);
+    const grilla = document.getElementById('grilla');
+    
+    grilla.insertAdjacentHTML("beforeend",nota(titulo,texto));
+    mostrarModal()
+    const contBtnsAcciones = document.getElementById('grilla').querySelectorAll('button');
 
-
-grilla.insertAdjacentHTML("beforeend",template);
-
+    console.log(contBtnsAcciones)
+    contBtnsAcciones.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const card = e.target.parentElement.parentElement.parentElement;
+            const medida = e.target.parentElement.parentElement.parentElement.children;
+            
+            console.log(e.target.parentElement.id)
+            if(e.target.parentElement.id === 'resuelto') {
+                console.log('si')
+                const btnRes = medida[2].querySelector('#resuelto')
+                console.log(btnRes)
+                btnRes.disabled = true;
+                card
+            }
+            else if(e.target.parentElement.id === 'eliminar') {
+                console.log('si')
+                const btnRes = medida[2].querySelector('#eliminar')
+                card.parentElement.parentElement.remove()
+            }
+        })
+    })
+    
+}
 
 const btnAddNota = document.getElementById('btnAddNota');
 btnAddNota.addEventListener('click',mostrarModal);
